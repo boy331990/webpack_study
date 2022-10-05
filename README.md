@@ -1,0 +1,38 @@
+- 웹팩은 번들러 도구 중 하나이다.
+- 웹팩을 사용하기 위해서는 nodejs가 필요하다.
+- npm init
+  -> 뜨는 항목들에 대해서는 엔터를 입력
+- npm install -D webpack webpack-cli
+  -> -D 옵션은 개발용에서만 쓰임을 표현하는 옵션이다.
+- npx webpack --entry ./source/index.js --output-path ./public/ --output-filename index_bundle.js
+  -> webpack을 이용하여 입구는 ./source/index.js이며, index_bulde.js명으로 ./public 하위에 위치하게 한다는 명령어이다.
+- 위와 같은 명령어를 편하게 사용하기 위해 webpack.config.js 파일을 생성한다.
+- __dirname은 현재 경로를 알려주는 약속어
+- npx webpack --config webpack.config.js = npx webpack 
+  -> 설정 파일명을 webpack.config.js로 했다면 --config 하위의 명령어는 생략해도 된다.
+- webpack에는 mode라는 것이 존재하며, 그 속성값으로 none, development, production이 있다.
+- webpack은 js 뿐만 아니라, css, png 등과 같은 파일들도 번들해줍니다.
+  -> 이를 위해서는 style-loader css-loader를 설치해야 합니다.
+  -> npm install --save-dev style-loader css-loader
+- css-loader는 웹팩이 css파일을 만나면 웹팩으로 css파일을 로더하는 것을 말합니다.
+- style-loader는 css-loader가 가져온 css파일을 웹 페이지 안에 스타일 태그로 주입해주는 로더입니다.
+  -> 이때 로더를 선언할때 뒤쪽에 선언한 로더가 먼저 실행된다.
+- 웹팩 내 entry 영역을 객체타입으로 주고, output에서 filename에 [name]을 주게되면 entry에 선언된 key로 번들링된다.
+- 웹팩에는 2가지의 확장 기능이 있다.(로더, 플러그인)
+- 로더 : 모듈을 최종적인 아웃풋으로 만들어 가는 과정(규정되어 있음.)
+- 플러그인 : 만들어진 최종적인 결과물을 변형한다.(더 복합적이고 자유로운 일을 할 수 있다.)
+  -> 플러그인은 직접 실행해야 한다.
+- HtmlWebpackPlugin 설치
+  -> npm install --save-dev html-webpack-plugin
+  -> 기존에 root 경로의 index.html, about.html 파일을 source 폴더 내로 이동
+  -> 번들러를 로드해주는 소스를 삭제
+- HtmlWebpackPlugin 객체를 plugins에 선언하고, template에 이용 할 html을 적고, filename은 public에 생성 될 파일명을 적는다.
+  -> 위와 같이만 하게되면 각 파일마다 번들러가 두개가 들어가는데 이때 chunks 옵션을 통해 entry에서 선언한 key값으로 매칭하여 
+  -> 해당 템플릿에서 이용 할 번들러들만 추가되게 할 수 있다.
+- npx webpack --watch
+  -> --watch 라는 옵션은 프로젝트 내 파일이 변경되면 자동적으로 번들링 해주는 기능이다.
+- DevServer
+  -> live reload
+  -> hot module replacement
+- Code splitting
+- Lazy loading
